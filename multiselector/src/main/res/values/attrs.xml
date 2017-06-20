@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Proportion">
+        <attr name="proportion" format="float" />
+        <attr name="fixed_width" format="boolean" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MultiSelector</string>
+    <string name="multi_video_all">所有视频</string>
+    <string name="multi_sd_path">/sdcard</string>
+    <string name="multi_video_unit">个视频</string>
+    <string name="multi_msg_amount_limit">已经达到最高选择数量</string>
+    <string name="multi_action_done">完成</string>
+    <string name="multi_action_button_string">%1$s(%2$d/%3$d)</string>
+</resources>
