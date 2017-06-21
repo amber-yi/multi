@@ -1,10 +1,15 @@
 package com.amber.multiselector.video.bean;
+
+import android.text.TextUtils;
+
+import com.amber.multiselector.inface.FileInfoUnify;
+
 /**
  * 视频信息
  * Created by luosiyi on 2017/6/20.
  */
 
-public class VideoInfo{
+public class VideoInfo implements FileInfoUnify {
     private long id;
     private String path;
     private long dateAdded;
@@ -114,6 +119,17 @@ public class VideoInfo{
 
     public void setThumbPath(String thumbPath) {
         this.thumbPath = thumbPath;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        try {
+            VideoInfo other = (VideoInfo) obj;
+            return TextUtils.equals(this.path, other.path);
+        }catch (ClassCastException e){
+            e.printStackTrace();
+        }
+        return super.equals(obj);
     }
 
 }

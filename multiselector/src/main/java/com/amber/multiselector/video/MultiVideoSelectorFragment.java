@@ -46,6 +46,18 @@ import java.util.List;
 
 public class MultiVideoSelectorFragment extends Fragment {
     public static final String TAG = "MultiVideoSelectorFragment";
+    // Single choice
+    public static final int MODE_SINGLE = 0;
+    // Multi choice
+    public static final int MODE_MULTI = 1;
+    // loaders
+    private static final int LOADER_ALL = 0;
+    private static final int LOADER_CATEGORY = 1;
+    /** Max image size，int，*/
+    public static final String EXTRA_SELECT_COUNT = "max_select_count";
+    /** Select mode，{@link #MODE_MULTI} by default */
+    public static final String EXTRA_SELECT_MODE = "select_count_mode";
+    private static final String KEY_TEMP_FILE = "key_temp_file";
 
     private ArrayList<VideoFolder> mResultFolder = new ArrayList();
     private ArrayList<String> resultList = new ArrayList();
@@ -78,9 +90,9 @@ public class MultiVideoSelectorFragment extends Fragment {
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
             CursorLoader cursorLoader = null;
-            if (id == 0) {
+            if (id == LOADER_ALL) {
                 cursorLoader = new CursorLoader(getActivity(), MediaStore.Video.Media.EXTERNAL_CONTENT_URI, VIDEO_PROJECTION, null, null, VIDEO_PROJECTION[2] + " DESC");
-            } else if (id == 1) {
+            } else if (id == LOADER_CATEGORY) {
                 cursorLoader = new CursorLoader(getActivity(), MediaStore.Video.Media.EXTERNAL_CONTENT_URI, VIDEO_PROJECTION, null, null, VIDEO_PROJECTION[2] + " DESC");
             }
 
@@ -307,12 +319,16 @@ public class MultiVideoSelectorFragment extends Fragment {
                         if (i == 0) {
                            getActivity().getSupportLoaderManager().restartLoader(0, (Bundle) null, mLoaderCallback);
                             mCategoryText.setText(R.string.multi_video_all);
+                            if(mCallback!=null)
+                                mCallback.onFolderChange(getString(R.string.multi_video_all));
 
                         } else {
                             VideoFolder folder = (VideoFolder) adapterView.getAdapter().getItem(i);
                             if (null != folder) {
                                mVideoAdapter.setData(folder.videos);
                                 mCategoryText.setText(folder.name);
+                                if(mCallback!=null)
+                                    mCallback.onFolderChange(folder.name);
                                 if (resultList != null && resultList.size() > 0) {
                                    mVideoAdapter.setDefaultSelected(resultList);
                                 }
@@ -329,7 +345,7 @@ public class MultiVideoSelectorFragment extends Fragment {
 
     private void selectVideoFromGrid(VideoInfo video, int mode) {
         if (video != null) {
-            if (mode == 1) {
+            if (mode == MODE_MULTI) {
                 if (resultList.contains(video.getPath())) {
                     resultList.remove(video.getPath());
                     if (mCallback != null) {
@@ -348,7 +364,7 @@ public class MultiVideoSelectorFragment extends Fragment {
                 }
 
                 mVideoAdapter.select(video);
-            } else if (mode == 0 && mCallback != null) {
+            } else if (mode == MODE_SINGLE && mCallback != null) {
                 mCallback.onSingleVideoSelected(video.getPath());
             }
         }
@@ -358,14 +374,14 @@ public class MultiVideoSelectorFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("key_temp_file", mTmpFile);
+        outState.putSerializable(KEY_TEMP_FILE, mTmpFile);
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState != null) {
-            mTmpFile = (File) savedInstanceState.getSerializable("key_temp_file");
+            mTmpFile = (File) savedInstanceState.getSerializable(KEY_TEMP_FILE);
         }
     }
 
@@ -384,11 +400,11 @@ public class MultiVideoSelectorFragment extends Fragment {
     }
 
     private int selectMode() {
-        return getArguments() == null ? 1 : getArguments().getInt("select_count_mode");
+        return getArguments() == null ? MODE_SINGLE : getArguments().getInt(EXTRA_SELECT_MODE);
     }
 
     private int selectVideoCount() {
-        return getArguments() == null ? 3 : getArguments().getInt("max_select_count");
+        return getArguments() == null ? 3 : getArguments().getInt(EXTRA_SELECT_COUNT);
     }
 
     public interface Callback {
@@ -397,6 +413,8 @@ public class MultiVideoSelectorFragment extends Fragment {
         void onVideoSelected(String var1);
 
         void onVideoUnselected(String var1);
+
+        void onFolderChange(String folderName);
 
     }
 }

@@ -32,7 +32,7 @@
             android:paddingRight="16dp"
             android:layout_centerVertical="true"
             android:textColor="#ff3936"
-            tools:text="@string/multi_video_all"
+            tools:text="所有图片"
             android:textSize="16sp"
             android:gravity="center_vertical"
             android:drawableRight="@drawable/mis_text_indicator"

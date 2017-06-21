@@ -4,6 +4,20 @@
     <string name="multi_sd_path">/sdcard</string>
     <string name="multi_video_unit">个视频</string>
     <string name="multi_msg_amount_limit">已经达到最高选择数量</string>
-    <string name="multi_action_done">完成</string>
+    <string name="multi_action_done">发送</string>
     <string name="multi_action_button_string">%1$s(%2$d/%3$d)</string>
+    <string name="multi_action_button_string_">%1$s(%2$d)</string>
+
+    <string name="multi_image_all">所有照片</string>
+    <string name="multi_image_unit">张</string>
+    <string name="multi_tip_take_photo">拍摄照片</string>
+    <string name="multi_permission_rationale_write_storage">保存拍照图片需要您提供写存储权限</string>
+    <string name="multi_error_image_not_exist">图片错误</string>
+    <string name="multi_msg_no_camera">没有系统相机</string>
+    <string name="multi_permission_dialog_title">权限拒绝</string>
+    <string name="multi_permission_dialog_ok">好</string>
+    <string name="multi_permission_dialog_cancel">拒绝</string>
+
+    <string name="multi_error_no_permission">无权限</string>
+
 </resources>

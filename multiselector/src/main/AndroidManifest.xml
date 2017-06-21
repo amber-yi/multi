@@ -6,7 +6,8 @@
         android:supportsRtl="true">
 
         <activity android:name=".video.MultiVideoSelectorActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+           />
+        <activity android:name=".image.MultiImageSelectorActivity"/>
     </application>
 
 </manifest>

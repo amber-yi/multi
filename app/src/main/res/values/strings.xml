@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Multi</string>
+    <string name="permission_rationale">浏览图片需要您提供浏览存储的权限</string>
+    <string name="permission_dialog_title">权限拒绝</string>
+    <string name="permission_dialog_ok">好</string>
+    <string name="permission_dialog_cancel">拒绝</string>
 </resources>
