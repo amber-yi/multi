@@ -57,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="15dp"
+            android:inputType="number"
             android:layout_marginRight="15dp"
             android:hint="图片默认9张，视频默认3部" />
 
