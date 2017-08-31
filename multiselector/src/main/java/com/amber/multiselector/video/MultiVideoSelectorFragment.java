@@ -27,7 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amber.multiselector.R;
-import com.amber.multiselector.utlis.ScreenUtils;
+import com.amber.multiselector.utils.ScreenUtils;
 import com.amber.multiselector.video.adapter.FolderAdapter;
 import com.amber.multiselector.video.adapter.VideoGridAdapter;
 import com.amber.multiselector.video.bean.VideoFolder;

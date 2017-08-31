@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#17abe3"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/multi_layout_toolbar" />
+
+    <com.amber.multiselector.image.crop.CropView
+        android:id="@+id/mCropView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:id="@+id/iv_rotate"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/icon_rotate"
+        android:layout_alignTop="@+id/mCropView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp" />
+</RelativeLayout>

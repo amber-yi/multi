@@ -5,19 +5,27 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.amber.multi.adapter.PhotoAdapter;
+import com.amber.multi.utils.SpaceItemDecoration;
+import com.amber.multi.widget.FullyGridLayoutManager;
 import com.amber.multiselector.image.MultiImageSelector;
 import com.amber.multiselector.image.MultiImageSelectorActivity;
+import com.amber.multiselector.image.bean.CropBean;
 import com.amber.multiselector.video.MultiVideoSelector;
 import com.amber.multiselector.video.MultiVideoSelectorActivity;
 
@@ -37,25 +45,35 @@ public class MainActivity extends AppCompatActivity {
     Unbinder unbinder;
     private ArrayList<String> mImageSelectPath;
     private ArrayList<String> mVideoSelectPath;
+    private int cropModel = 0;
 
     @BindView(R.id.rg_mode)
     RadioGroup rgMode;
+    @BindView(R.id.tv_max_count)
+    TextView tvMaxCount;
     @BindView(R.id.et_max_count)
     EditText etMaxCount;
     @BindView(R.id.rg_camera)
     RadioGroup rgCamera;
+    @BindView(R.id.tv_crop)
+    TextView tvCrop;
+    @BindView(R.id.rg_crop)
+    RadioGroup rgCrop;
     @BindView(R.id.btn_show_image)
     TextView btnShowImage;
     @BindView(R.id.btn_show_video)
     TextView btnShowVideo;
     @BindView(R.id.tv_result)
     TextView tvResult;
+    @BindView(R.id.lv_result)
+    RecyclerView lv_result;
 
     @OnClick(R.id.btn_show_image)
     public void submit(View view) {
         showImage = true;
         pick();
     }
+
     @OnClick(R.id.btn_show_video)
     public void submit2(View view) {
         showImage = false;
@@ -67,9 +85,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
+        rgMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                if(i==R.id.rb_single){
+                    tvMaxCount.setVisibility(View.GONE);
+                    etMaxCount.setVisibility(View.GONE);
+                    tvCrop.setVisibility(View.VISIBLE);
+                    rgCrop.setVisibility(View.VISIBLE);
+                }else {
+                    tvMaxCount.setVisibility(View.VISIBLE);
+                    etMaxCount.setVisibility(View.VISIBLE);
+                    tvCrop.setVisibility(View.GONE);
+                    rgCrop.setVisibility(View.GONE);
+                }
+            }
+        });
         rgMode.check(R.id.rb_multi);
         rgCamera.check(R.id.rb_show_camera);
-
+        rgCrop.check(R.id.rb_no_crop);
+//        lv_result.setNestedScrollingEnabled(false);
+//        FullyGridLayoutManager layoutManager=new  FullyGridLayoutManager(this, 2);
+//        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+//        layoutManager.setSmoothScrollbarEnabled(true);
+        lv_result.setHasFixedSize(true);
+        lv_result.setNestedScrollingEnabled(false);
+        lv_result.setLayoutManager(new GridLayoutManager(this,2));
+        lv_result.addItemDecoration(new SpaceItemDecoration(this));
     }
 
     void pick() {
@@ -102,6 +144,13 @@ public class MainActivity extends AppCompatActivity {
         selector.count(maxNum);
         if (rgMode.getCheckedRadioButtonId() == R.id.rb_single) {
             selector.single();
+            if (rgCrop.getCheckedRadioButtonId() == R.id.rb_circle_crop) {
+                selector.crop(CropBean.getCircleCrop());
+            } else if (rgCrop.getCheckedRadioButtonId() == R.id.rb_square_crop) {
+                selector.crop(CropBean.getSquareCrop());
+            } else if (rgCrop.getCheckedRadioButtonId() == R.id.rb_rectangle_crop) {
+                selector.crop(CropBean.getRectangleCrop());
+            }
         } else {
             selector.multi();
         }
@@ -164,12 +213,16 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == RESULT_OK) {
                 mImageSelectPath = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
-                StringBuilder sb = new StringBuilder();
-                for (String p : mImageSelectPath) {
-                    sb.append(p);
-                    sb.append("\n");
-                }
-                tvResult.setText(sb.toString());
+//                StringBuilder sb = new StringBuilder();
+//                for (String p : mImageSelectPath) {
+//                    sb.append(p);
+//                    sb.append("\n");
+//                }
+//                tvResult.setText(sb.toString());
+                tvResult.setText("");
+                PhotoAdapter adapter=new PhotoAdapter(this,mImageSelectPath);
+                lv_result.setAdapter(adapter);
+
             }
         } else if (requestCode == REQUEST_VIDEO) {
             if (resultCode == RESULT_OK) {
@@ -180,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
                     sb.append("\n");
                 }
                 tvResult.setText(sb.toString());
+                lv_result.setAdapter(null);
             }
         }
     }

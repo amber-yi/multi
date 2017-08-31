@@ -2,7 +2,8 @@ package com.amber.multiselector.image.bean;
 
 import android.text.TextUtils;
 
-import com.amber.multiselector.inface.FileInfoUnify;
+import com.amber.multiselector.unify.FileInfoUnify;
+
 
 /**
  * 图片实体

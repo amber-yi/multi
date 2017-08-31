@@ -2,14 +2,15 @@ package com.amber.multiselector.video.bean;
 
 import android.text.TextUtils;
 
-import com.amber.multiselector.inface.FileInfoUnify;
+import com.amber.multiselector.unify.FileInfoUnify;
+
 
 /**
  * 视频信息
  * Created by luosiyi on 2017/6/20.
  */
 
-public class VideoInfo implements FileInfoUnify {
+public class VideoInfo implements FileInfoUnify{
     private long id;
     private String path;
     private long dateAdded;

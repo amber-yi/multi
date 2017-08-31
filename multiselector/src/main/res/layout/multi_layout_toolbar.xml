@@ -10,8 +10,8 @@
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingRight="15dp"
         android:layout_marginLeft="12dp"
+        android:paddingRight="15dp"
         android:src="@drawable/multi_btn_back" />
 
     <TextView
@@ -20,29 +20,28 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:layout_weight="1"
-        android:maxLines="1"
-        android:maxEms="16"
         android:ellipsize="middle"
         android:gravity="center"
+        android:maxEms="16"
+        android:maxLines="1"
         android:text=""
         android:textColor="#ffffff"
         android:textSize="16sp" />
-
     <Button
         android:id="@+id/commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
         android:background="@drawable/mis_action_btn"
         android:minHeight="1dp"
-        android:layout_centerVertical="true"
         android:minWidth="1dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="12dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textColor="@color/mis_default_text_color"
         android:text="发送"
-        android:textSize="12sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textColor="@color/mis_default_text_color"
+        android:textSize="12sp" />
 </RelativeLayout>

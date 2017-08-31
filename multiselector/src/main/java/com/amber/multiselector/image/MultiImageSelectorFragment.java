@@ -39,9 +39,9 @@ import com.amber.multiselector.image.adapter.FolderAdapter;
 import com.amber.multiselector.image.adapter.ImageGridAdapter;
 import com.amber.multiselector.image.bean.ImageFolder;
 import com.amber.multiselector.image.bean.ImageInfo;
-import com.amber.multiselector.inface.SelectorCallBack;
-import com.amber.multiselector.utlis.FileUtils;
-import com.amber.multiselector.utlis.ScreenUtils;
+import com.amber.multiselector.utils.FileUtils;
+import com.amber.multiselector.utils.ScreenUtils;
+import com.amber.multiselector.utils.ToastUtils;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
@@ -373,7 +373,7 @@ public class MultiImageSelectorFragment extends Fragment{
                     }
                 } else {
                     if(selectImageCount() == resultList.size()){
-                        Toast.makeText(getActivity(), R.string.multi_msg_amount_limit, Toast.LENGTH_SHORT).show();
+                        ToastUtils.getInstance().showToast(R.string.multi_msg_amount_limit);
                         return;
                     }
                     resultList.add(image.path);

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amber.multiselector.R;
-import com.amber.multiselector.utlis.TimeUtils;
+import com.amber.multiselector.utils.TimeUtils;
 import com.amber.multiselector.video.bean.VideoInfo;
 import com.bumptech.glide.Glide;
 
@@ -142,7 +142,7 @@ public class VideoGridAdapter extends BaseAdapter {
             image = (ImageView)view.findViewById(R.id.image);
             indicator = (ImageView)view.findViewById(R.id.checkmark);
             mask = view.findViewById(R.id.mask);
-            duration = view.findViewById(R.id.tv_duration);
+            duration = (TextView) view.findViewById(R.id.tv_duration);
             view.setTag(this);
         }
 

@@ -1,13 +1,9 @@
 package com.amber.multiselector.video;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amber.multiselector.R;
-import com.amber.multiselector.utlis.StatusBarUtil;
+import com.amber.multiselector.utils.StatusBarUtil;
 
 import java.util.ArrayList;
 

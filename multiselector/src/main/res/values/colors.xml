@@ -6,4 +6,6 @@
     <color name="multi_actionbar_color">#ff3936</color>
     <color name="multi_transparency">#00000000</color>
 
+
+    <color name="crop_background">#66000000</color>
 </resources>

@@ -1,1 +1,1 @@
-include ':app', ':multiselector'
+include ':app', ':multiselector', ':toastlibraies', ':magicindicator'

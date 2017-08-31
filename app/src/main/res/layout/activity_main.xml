@@ -18,6 +18,8 @@
             android:padding="15dp"
             android:text="选择模式"
             android:textColor="#000000"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:textSize="15sp" />
 
         <RadioGroup
@@ -45,6 +47,7 @@
         </RadioGroup>
 
         <TextView
+            android:id="@+id/tv_max_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
@@ -57,9 +60,9 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="15dp"
-            android:inputType="number"
             android:layout_marginRight="15dp"
-            android:hint="图片默认9张，视频默认3部" />
+            android:hint="图片默认9张，视频默认3部"
+            android:inputType="number" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -94,6 +97,59 @@
         </RadioGroup>
 
         <TextView
+            android:id="@+id/tv_crop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="裁剪方式(暂不支持多张同时裁剪)"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <RadioGroup
+            android:id="@+id/rg_crop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_circle_crop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="圆形"
+                android:textColor="#333333"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/rb_square_crop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="方形"
+                android:textColor="#333333"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/rb_rectangle_crop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="矩形"
+                android:textColor="#333333"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/rb_no_crop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="不裁剪"
+                android:textColor="#333333"
+                android:textSize="13sp" />
+        </RadioGroup>
+
+        <TextView
             android:id="@+id/btn_show_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -119,6 +175,15 @@
             android:layout_margin="15dp"
             android:textColor="#000000"
             android:textSize="13sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/lv_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        </RelativeLayout>
 
     </LinearLayout>
 </ScrollView>
