@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -142,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         MultiImageSelector selector = MultiImageSelector.create();
         selector.showCamera(showCamera);
         selector.count(maxNum);
+        selector.titleColor(Color.GREEN);
         if (rgMode.getCheckedRadioButtonId() == R.id.rb_single) {
             selector.single();
             if (rgCrop.getCheckedRadioButtonId() == R.id.rb_circle_crop) {
@@ -213,13 +215,13 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == RESULT_OK) {
                 mImageSelectPath = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
-//                StringBuilder sb = new StringBuilder();
-//                for (String p : mImageSelectPath) {
-//                    sb.append(p);
-//                    sb.append("\n");
-//                }
-//                tvResult.setText(sb.toString());
-                tvResult.setText("");
+                StringBuilder sb = new StringBuilder();
+                for (String p : mImageSelectPath) {
+                    sb.append(p);
+                    sb.append("\n");
+                }
+                tvResult.setText(sb.toString());
+//                tvResult.setText("");
                 PhotoAdapter adapter=new PhotoAdapter(this,mImageSelectPath);
                 lv_result.setAdapter(adapter);
 

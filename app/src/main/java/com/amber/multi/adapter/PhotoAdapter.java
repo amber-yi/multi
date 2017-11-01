@@ -12,7 +12,11 @@ import android.widget.TextView;
 import com.amber.multi.BrowseImageActivity;
 import com.amber.multi.R;
 import com.amber.multi.utils.GlideRoundImage;
+import com.amber.multiselector.utils.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +72,18 @@ public class PhotoAdapter extends RecyclerView.Adapter {
 
         public void setData(final int position) {
             Glide.with(context).load(list.get(position))
-                    .transform(new GlideRoundImage(context))
+                    .transform(new GlideRoundImage(context)).listener(new RequestListener<String, GlideDrawable>() {
+                @Override
+                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    ToastUtils.getInstance().showToast("加载图片出错"+e.getMessage());
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    return false;
+                }
+            })
                     .error(R.mipmap.placeholder).into(ivPhoto);
             tvPath.setText(list.get(position));
             itemView.setOnClickListener(new View.OnClickListener() {

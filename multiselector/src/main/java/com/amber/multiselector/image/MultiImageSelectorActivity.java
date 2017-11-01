@@ -1,14 +1,18 @@
 package com.amber.multiselector.image;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amber.multiselector.R;
@@ -19,8 +23,10 @@ import com.amber.multiselector.utils.FileSizeUtil;
 import com.amber.multiselector.utils.FileUtils;
 import com.amber.multiselector.utils.StatusBarUtil;
 import com.amber.multiselector.utils.ToastUtils;
+import com.amber.multiselector.utils.UriToPathUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +40,8 @@ public class MultiImageSelectorActivity extends AppCompatActivity
      * 图片选择的回调
      */
     public static ResultCallback resultCallback;
+
+    private RelativeLayout layoutTop;
 
     private CropBean crop;
     // Single choice
@@ -75,6 +83,7 @@ public class MultiImageSelectorActivity extends AppCompatActivity
     private TextView mTitle;
     private int mDefaultCount = DEFAULT_IMAGE_SIZE;
     private Uri imageUri;
+    public static  int TOP_COLOR= Color.RED;
 //    private static final String IMAGE_FILE_LOCATION = "file://" + FileUtils.getSDPath() + "temp.jpg";//temp file
 //    private Uri tempUri = Uri.parse(IMAGE_FILE_LOCATION);//The Uri to store the big bitmap
 
@@ -83,9 +92,9 @@ public class MultiImageSelectorActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setTheme(R.style.MIS_NO_ACTIONBAR);
         setContentView(R.layout.multi_activity_default);
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.multi_actionbar_color), 0);
-
-
+        layoutTop= (RelativeLayout) findViewById(R.id.layout_top);
+        layoutTop.setBackgroundColor(TOP_COLOR);
+        StatusBarUtil.setColor(this, TOP_COLOR, 0);
         final Intent intent = getIntent();
         crop = intent.getParcelableExtra(EXTRA_SELECT_CROP);
         mDefaultCount = intent.getIntExtra(EXTRA_SELECT_COUNT, DEFAULT_IMAGE_SIZE);
@@ -216,16 +225,19 @@ public class MultiImageSelectorActivity extends AppCompatActivity
         if (imageFile != null) {
             // notify system the image has change
             sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(imageFile)));
-            resultList.add(imageFile.getAbsolutePath());
+//            resultList.add(imageFile.getAbsolutePath());
+            String path=UriToPathUtil.getRealFilePath(this,Uri.fromFile(imageFile));
+            resultList.add(path);
+            ToastUtils.getInstance().showToast("照片路劲是=="+path);
+
             if (crop != null) {
                 goZoom(imageFile, crop);
             } else {
-
                 if (resultCallback != null) {
                     resultCallback.detectionResults(MultiImageSelectorActivity.this, resultList);
                 } else {
                     Intent data = new Intent();
-                    data.putStringArrayListExtra(EXTRA_RESULT, resultList);
+                    data.putStringArrayListExtra(EXTRA_RESULT, (ArrayList<String>) resultList);
                     setResult(RESULT_OK, data);
                 }
                 finish();
@@ -233,9 +245,11 @@ public class MultiImageSelectorActivity extends AppCompatActivity
 
         }
     }
+
     private void goZoom(String path, CropBean crop) {
         goZoom(new File(path), crop);
     }
+
     private void goZoom(File file, CropBean crop) {
         imageUri = Uri.fromFile(file);
         crop.setmUri(imageUri);
@@ -244,6 +258,7 @@ public class MultiImageSelectorActivity extends AppCompatActivity
         startActivityForResult(intent, CROP_REQUEST);
 
     }
+
     @Override
     public void onFolderChange(String folderName) {
         mTitle.setText(folderName);
@@ -255,6 +270,7 @@ public class MultiImageSelectorActivity extends AppCompatActivity
         if (resultCallback != null)
             resultCallback = null;
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -267,7 +283,7 @@ public class MultiImageSelectorActivity extends AppCompatActivity
 //                list.add(UriToPathUtil.getRealFilePath(this, tempUri));
                 if (resultCallback != null) {
                     resultCallback.detectionResults(MultiImageSelectorActivity.this, list);
-                }else {
+                } else {
                     Intent intent = new Intent();
                     resultList.add(data.getStringExtra("path"));
                     intent.putStringArrayListExtra(EXTRA_RESULT, resultList);

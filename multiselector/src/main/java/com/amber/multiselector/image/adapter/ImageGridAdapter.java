@@ -12,6 +12,9 @@ import android.widget.ImageView;
 
 import com.amber.multiselector.R;
 import com.amber.multiselector.image.bean.ImageInfo;
+import com.amber.multiselector.image.dyn.JpgDataModel;
+
+import com.amber.multiselector.image.dyn.WebpDataModel;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
@@ -224,11 +227,23 @@ public class ImageGridAdapter extends BaseAdapter {
             File imageFile = new File(data.path);
             if (imageFile.exists()) {
                 // 显示图片
-                Glide.with(mContext)
-                        .load(imageFile)
-                        .placeholder(R.drawable.mis_default_error)
-                        .centerCrop()
-                        .into(image);
+                if(data.path.endsWith("webp")){
+                    //加载webp图片
+                    Glide.with(mContext).load(imageFile).into(image);
+
+                }else if(data.path.endsWith("gif")){
+                    //加载jpg图片
+                    Glide.with(mContext)
+                            .load(data.path)
+                            .into(image);
+                }else {
+                    Glide.with(mContext)
+                            .load(data.path)
+                            .placeholder(R.drawable.mis_default_error)
+                            .centerCrop()
+                            .into(image);
+                }
+
 
             } else {
                 image.setImageResource(R.drawable.mis_default_error);

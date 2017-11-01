@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Parcelable;
+import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
@@ -45,10 +46,8 @@ public class MultiImageSelector {
      * @return
      */
     public static MultiImageSelector create() {
-//        if (sSelector == null) {
-//            sSelector = new MultiImageSelector();
-//        }
-        return new MultiImageSelector();
+        sSelector = new MultiImageSelector();
+        return sSelector;
     }
 
     /**
@@ -136,6 +135,16 @@ public class MultiImageSelector {
      */
     public MultiImageSelector crop(CropBean cropBean) {
         crop = cropBean;
+        return sSelector;
+    }
+
+    /**
+     * 状态栏与标题栏颜色
+     * @param color
+     * @return
+     */
+    public MultiImageSelector titleColor(@ColorInt int color) {
+        MultiImageSelectorActivity.TOP_COLOR = color;
         return sSelector;
     }
 

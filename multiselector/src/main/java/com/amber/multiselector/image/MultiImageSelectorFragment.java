@@ -102,6 +102,7 @@ public class MultiImageSelectorFragment extends Fragment{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         try {
             mCallback = (Callback) getActivity();
         }catch (ClassCastException e){
@@ -404,10 +405,13 @@ public class MultiImageSelectorFragment extends Fragment{
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
             CursorLoader cursorLoader = null;
             if(id == LOADER_ALL) {
+//                cursorLoader = new CursorLoader(getActivity(),
+//                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION,
+//                        IMAGE_PROJECTION[4]+">0 ", null, IMAGE_PROJECTION[2] + " DESC");
                 cursorLoader = new CursorLoader(getActivity(),
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION,
-                        IMAGE_PROJECTION[4]+">0 AND "+IMAGE_PROJECTION[3]+"=? OR "+IMAGE_PROJECTION[3]+"=? ",
-                        new String[]{"image/jpeg", "image/png"}, IMAGE_PROJECTION[2] + " DESC");
+                        IMAGE_PROJECTION[4]+">0 AND "+IMAGE_PROJECTION[3]+"=? OR "+IMAGE_PROJECTION[3]+"=? OR "+IMAGE_PROJECTION[3]+"=?",
+                        new String[]{"image/jpeg", "image/png","image/gif"}, IMAGE_PROJECTION[2] + " DESC");
             }else if(id == LOADER_CATEGORY){
                 cursorLoader = new CursorLoader(getActivity(),
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION,
