@@ -18,11 +18,12 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 
-import com.amber.magicindicator.MagicIndicator;
-import com.amber.magicindicator.ViewPagerHelper;
-import com.amber.magicindicator.buildins.circlenavigator.CircleNavigator;
+
 import com.amber.multi.utils.GlideRoundImage;
 import com.amber.multi.widget.PhotoViewPager;
+import com.amber.multi.widget.magicindicator.MagicIndicator;
+import com.amber.multi.widget.magicindicator.ViewPagerHelper;
+import com.amber.multi.widget.magicindicator.buildins.circlenavigator.CircleNavigator;
 import com.amber.multiselector.utils.ScreenUtils;
 import com.bumptech.glide.Glide;
 
