@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.amber.multi.adapter.PhotoAdapter;
 import com.amber.multi.utils.SpaceItemDecoration;
 import com.amber.multi.widget.FullyGridLayoutManager;
+import com.amber.multiselector.config.MultiConfig;
 import com.amber.multiselector.image.MultiImageSelector;
 import com.amber.multiselector.image.MultiImageSelectorActivity;
 import com.amber.multiselector.image.bean.CropBean;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MultiConfig.init(this);
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
         rgMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

@@ -3,6 +3,8 @@ package com.amber.multiselector.utils;
 import android.support.annotation.StringRes;
 import android.widget.Toast;
 
+import com.amber.multiselector.config.MultiConfig;
+
 /**
  * Created by luosiyi on 2017/8/30.
  * 提示弹窗
@@ -32,7 +34,7 @@ public class ToastUtils {
 
     public void showToast(String msg) {
         if (toast == null) {
-            toast = Toast.makeText(MultiApp.getMultiApp(), msg, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(MultiConfig.mContext, msg, Toast.LENGTH_SHORT);
         } else {
             toast.setText(msg);
         }
@@ -41,7 +43,7 @@ public class ToastUtils {
 
     public void showToast(@StringRes int msgId) {
         if (toast == null) {
-            toast = Toast.makeText(MultiApp.getMultiApp(), msgId, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(MultiConfig.mContext, msgId, Toast.LENGTH_SHORT);
         } else {
             toast.setText(msgId);
         }

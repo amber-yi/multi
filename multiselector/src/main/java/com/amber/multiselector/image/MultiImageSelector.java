@@ -6,13 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import com.amber.multiselector.R;
+import com.amber.multiselector.config.MultiConfig;
 import com.amber.multiselector.image.bean.CropBean;
 import com.amber.multiselector.unify.ResultCallback;
 
@@ -38,6 +38,9 @@ public class MultiImageSelector {
 
 
     private MultiImageSelector() {
+        if(MultiConfig.mContext==null){
+            throw new RuntimeException(" Please initialize the MultiImageSelector on Application or Activity in onCreate “ MultiConfig.init(Context context); ”");
+        }
     }
 
     /**

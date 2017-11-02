@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.amber.multiselector.utils.MultiApp;
+import com.amber.multiselector.config.MultiConfig;
 import com.amber.multiselector.utils.ScreenUtils;
 
 
@@ -67,7 +67,7 @@ public class CropBean implements Parcelable {
      */
     public static CropBean getCircleCrop() {
         CropBean cropBean = new CropBean();
-        int X = 2*ScreenUtils.getScreenSize(MultiApp.getMultiApp()).x / 3;
+        int X = 2*ScreenUtils.getScreenSize(MultiConfig.mContext).x / 3;
         cropBean.aspectX = X;
         cropBean.aspectY = X;
         cropBean.outputX = X;
@@ -83,7 +83,7 @@ public class CropBean implements Parcelable {
      */
     public static CropBean getSquareCrop() {
         CropBean cropBean = new CropBean();
-        int X = 2 * ScreenUtils.getScreenSize(MultiApp.getMultiApp()).x / 3;
+        int X = 2 * ScreenUtils.getScreenSize(MultiConfig.mContext).x / 3;
         cropBean.aspectX = X;
         cropBean.aspectY = X;
         cropBean.outputX = X;
@@ -99,7 +99,7 @@ public class CropBean implements Parcelable {
      */
     public static CropBean getRectangleCrop() {
         CropBean cropBean = new CropBean();
-        int X = 2 * ScreenUtils.getScreenSize(MultiApp.getMultiApp()).x / 3;
+        int X = 2 * ScreenUtils.getScreenSize(MultiConfig.mContext).x / 3;
         int Y = 2 * X / 3;
         cropBean.aspectX = X;
         cropBean.aspectY = Y;
