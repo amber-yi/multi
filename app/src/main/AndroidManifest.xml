@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".BrowseImageActivity"
-            android:theme="@style/MIS_NO_ACTIONBAR"/>
+          />
     </application>
 
 </manifest>

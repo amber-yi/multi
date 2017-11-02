@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,7 +39,9 @@ public class MultiVideoSelectorActivity extends AppCompatActivity implements Mul
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.MIS_NO_ACTIONBAR);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
         setContentView(R.layout.multi_activity_default);
         StatusBarUtil.setColor(this,getResources().getColor(R.color.multi_actionbar_color),0);
 

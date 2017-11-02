@@ -13,7 +13,7 @@
         android:layout_marginTop="40dp"
         android:background="#0e0e0e" />
 
-    <com.amber.magicindicator.MagicIndicator
+    <com.amber.multi.widget.magicindicator.MagicIndicator
         android:id="@+id/mIndicator"
         android:layout_width="wrap_content"
         android:layout_height="30dp"

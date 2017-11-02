@@ -9,9 +9,10 @@
 
         <activity android:name=".video.MultiVideoSelectorActivity"
            />
-        <activity android:name=".image.MultiImageSelectorActivity"/>
+        <activity android:name=".image.MultiImageSelectorActivity"
+            />
         <activity android:name=".image.crop.CropActivity"
-            android:theme="@style/MIS_NO_ACTIONBAR"/>
+            />
     </application>
 
 </manifest>

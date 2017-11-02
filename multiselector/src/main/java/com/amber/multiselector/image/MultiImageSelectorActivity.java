@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -90,8 +91,11 @@ public class MultiImageSelectorActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.MIS_NO_ACTIONBAR);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
         setContentView(R.layout.multi_activity_default);
+
         layoutTop= (RelativeLayout) findViewById(R.id.layout_top);
         layoutTop.setBackgroundColor(TOP_COLOR);
         StatusBarUtil.setColor(this, TOP_COLOR, 0);

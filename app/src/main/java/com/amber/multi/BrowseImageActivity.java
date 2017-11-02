@@ -65,7 +65,9 @@ public class BrowseImageActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //设置无标题
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
         //设置全屏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
