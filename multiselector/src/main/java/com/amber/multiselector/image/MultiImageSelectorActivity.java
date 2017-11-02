@@ -84,19 +84,19 @@ public class MultiImageSelectorActivity extends AppCompatActivity
     private TextView mTitle;
     private int mDefaultCount = DEFAULT_IMAGE_SIZE;
     private Uri imageUri;
-    public static  int TOP_COLOR= Color.RED;
+    public static int TOP_COLOR = Color.RED;
 //    private static final String IMAGE_FILE_LOCATION = "file://" + FileUtils.getSDPath() + "temp.jpg";//temp file
 //    private Uri tempUri = Uri.parse(IMAGE_FILE_LOCATION);//The Uri to store the big bitmap
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
         setContentView(R.layout.multi_activity_default);
 
-        layoutTop= (RelativeLayout) findViewById(R.id.layout_top);
+        layoutTop = (RelativeLayout) findViewById(R.id.layout_top);
         layoutTop.setBackgroundColor(TOP_COLOR);
         StatusBarUtil.setColor(this, TOP_COLOR, 0);
         final Intent intent = getIntent();
@@ -123,13 +123,17 @@ public class MultiImageSelectorActivity extends AppCompatActivity
             mSubmitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (resultList != null && resultList.size() > 0) {
-                        // Notify success
-                        Intent data = new Intent();
-                        data.putStringArrayListExtra(EXTRA_RESULT, resultList);
-                        setResult(RESULT_OK, data);
+                    if (resultCallback != null) {
+                        resultCallback.detectionResults(MultiImageSelectorActivity.this, resultList);
                     } else {
-                        setResult(RESULT_CANCELED);
+                        if (resultList != null && resultList.size() > 0) {
+                            // Notify success
+                            Intent data = new Intent();
+                            data.putStringArrayListExtra(EXTRA_RESULT, resultList);
+                            setResult(RESULT_OK, data);
+                        } else {
+                            setResult(RESULT_CANCELED);
+                        }
                     }
                     finish();
                 }
@@ -230,9 +234,9 @@ public class MultiImageSelectorActivity extends AppCompatActivity
             // notify system the image has change
             sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(imageFile)));
 //            resultList.add(imageFile.getAbsolutePath());
-            String path=UriToPathUtil.getRealFilePath(this,Uri.fromFile(imageFile));
+            String path = UriToPathUtil.getRealFilePath(this, Uri.fromFile(imageFile));
             resultList.add(path);
-            ToastUtils.getInstance().showToast("照片路劲是=="+path);
+            ToastUtils.getInstance().showToast("照片路劲是==" + path);
 
             if (crop != null) {
                 goZoom(imageFile, crop);

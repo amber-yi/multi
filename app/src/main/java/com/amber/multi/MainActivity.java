@@ -28,10 +28,12 @@ import com.amber.multiselector.config.MultiConfig;
 import com.amber.multiselector.image.MultiImageSelector;
 import com.amber.multiselector.image.MultiImageSelectorActivity;
 import com.amber.multiselector.image.bean.CropBean;
+import com.amber.multiselector.unify.ResultCallback;
 import com.amber.multiselector.video.MultiVideoSelector;
 import com.amber.multiselector.video.MultiVideoSelectorActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -158,6 +160,21 @@ public class MainActivity extends AppCompatActivity {
         } else {
             selector.multi();
         }
+        selector.callback(new ResultCallback() {
+            @Override
+            public void results(List<String> results) {
+                mImageSelectPath = (ArrayList<String>) results;
+                StringBuilder sb = new StringBuilder();
+                for (String p : mImageSelectPath) {
+                    sb.append(p);
+                    sb.append("\n");
+                }
+                tvResult.setText(sb.toString());
+//                tvResult.setText("");
+                PhotoAdapter adapter=new PhotoAdapter(MainActivity.this,results);
+                lv_result.setAdapter(adapter);
+            }
+        });
         selector.origin(mImageSelectPath);
         selector.start(MainActivity.this, REQUEST_IMAGE);
     }
@@ -214,21 +231,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
-                mImageSelectPath = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
-                StringBuilder sb = new StringBuilder();
-                for (String p : mImageSelectPath) {
-                    sb.append(p);
-                    sb.append("\n");
-                }
-                tvResult.setText(sb.toString());
-//                tvResult.setText("");
-                PhotoAdapter adapter=new PhotoAdapter(this,mImageSelectPath);
-                lv_result.setAdapter(adapter);
-
-            }
-        } else if (requestCode == REQUEST_VIDEO) {
+//        if (requestCode == REQUEST_IMAGE) {
+//            if (resultCode == RESULT_OK) {
+//                mImageSelectPath = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
+//                StringBuilder sb = new StringBuilder();
+//                for (String p : mImageSelectPath) {
+//                    sb.append(p);
+//                    sb.append("\n");
+//                }
+//                tvResult.setText(sb.toString());
+////                tvResult.setText("");
+//                PhotoAdapter adapter=new PhotoAdapter(this,mImageSelectPath);
+//                lv_result.setAdapter(adapter);
+//
+//            }
+//        } else
+            if (requestCode == REQUEST_VIDEO) {
             if (resultCode == RESULT_OK) {
                 mVideoSelectPath = data.getStringArrayListExtra(MultiVideoSelector.EXTRA_RESULT);
                 StringBuilder sb = new StringBuilder();
